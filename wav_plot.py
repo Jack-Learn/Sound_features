@@ -13,10 +13,27 @@ class Wav_plot():
 
     # 時域波型
     def time_wave(self):
-        plt.figure(2, figsize=(14, 5))
+        plt.figure(figsize=(14, 5))
         display.waveplot(self.sig, sr=self.sr, x_axis='time')
         plt.ylabel('Amplitude')
         plt.title(self.audio_name, fontproperties="Microsoft JhengHei")
+        plt.show()
+
+    #Spectrogram
+    def spec(self):
+        X = librosa.stft(self.sig)
+        Xdb = librosa.amplitude_to_db(X, ref=1.0)
+        plt.figure(figsize=(14, 5))
+        librosa.display.specshow(
+            Xdb,
+            sr=self.sr,
+            x_axis='time',
+            y_axis='linear',
+            cmap='jet',
+        )
+        plt.colorbar(format=' %+2.0f dB ')  # 右邊的色度條
+        title = 'spectrogram_' + self.audio_name
+        plt.title(title, fontproperties="Microsoft JhengHei")
         plt.show()
 
     #MFCC Spectrogram
@@ -33,7 +50,7 @@ class Wav_plot():
         )
         # 轉換為對數刻度
         logmelspec = librosa.power_to_db(np.abs(melspec))
-        plt.figure(1, figsize=(14, 5))
+        plt.figure(figsize=(14, 5))
         librosa.display.specshow(
             logmelspec,
             sr=self.sr,

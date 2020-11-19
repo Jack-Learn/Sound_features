@@ -11,7 +11,9 @@ def main():
     # 設定參數
     wav_plot = Wav_plot(sig, sr, audio_name)
 
-    # wav_plot.time_wave()
+    # 畫圖
+    wav_plot.spec()
+    wav_plot.time_wave()
     wav_plot.Mel_spec()
 
 
