@@ -22,12 +22,16 @@ def main():
     sig_ps = librosa.effects.pitch_shift(sig, sr, n_steps=6)  # n_steps控制音調變化尺度
     audio3 = Wav_plot(sig_ps, sr, 'Pitch Shift')
 
-    # 畫圖
-    audio1.time_wave()
-    audio2.time_wave()
-    plt.show()
-    audio1.frequence_wavform()
-    audio3.frequence_wavform()
+    ## 畫圖
+    # audio1.time_wave()
+    # audio2.time_wave()
+    # plt.show()
+    # audio1.frequence_wavform()
+    # audio3.frequence_wavform()
+    # plt.show()
+    audio1.Mel_spec()
+    audio2.Mel_spec()
+    audio3.Mel_spec()
     plt.show()
 
 

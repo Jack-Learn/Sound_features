@@ -64,7 +64,7 @@ class Wav_plot():
         )
         # 轉換為對數刻度
         logmelspec = librosa.power_to_db(np.abs(melspec))
-        plt.figure(figsize=(14, 5))
+        plt.figure(figsize=(9, 4))
         librosa.display.specshow(
             logmelspec,
             sr=self.sr,
@@ -75,4 +75,3 @@ class Wav_plot():
         plt.colorbar(format=' %+2.0f dB ')  # 右邊的色度條
         title = 'Mel spectrogram_' + self.audio_name
         plt.title(title, fontproperties="Microsoft JhengHei")
-        plt.show()
