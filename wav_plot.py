@@ -13,11 +13,11 @@ class Wav_plot():
 
     # 時域波型
     def time_wave(self):
-        plt.figure(figsize=(14, 5))
+        plt.figure()
         display.waveplot(self.sig, sr=self.sr, x_axis='time')
         plt.ylabel('Amplitude')
         plt.title(self.audio_name, fontproperties="Microsoft JhengHei")
-        plt.show()
+        # plt.show()
 
     #Spectrogram
     def spec(self):
