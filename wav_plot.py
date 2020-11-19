@@ -1,5 +1,7 @@
 import matplotlib.pyplot as plt
 from librosa import display
+import librosa
+import numpy as np
 
 
 class Wav_plot():
@@ -11,8 +13,35 @@ class Wav_plot():
 
     # 時域波型
     def time_wave(self):
-        plt.figure(figsize=(15, 5))
+        plt.figure(2, figsize=(14, 5))
         display.waveplot(self.sig, sr=self.sr, x_axis='time')
         plt.ylabel('Amplitude')
         plt.title(self.audio_name, fontproperties="Microsoft JhengHei")
+        plt.show()
+
+    #MFCC Spectrogram
+    def Mel_spec(self):
+        # 取mfcc係數
+        mfccs = librosa.feature.mfcc(y=self.sig, sr=self.sr, n_mfcc=22)
+        #計算mel頻譜圖參數
+        melspec = librosa.feature.melspectrogram(
+            self.sig,
+            self.sr,
+            n_fft=2048,
+            hop_length=512,
+            n_mels=128,
+        )
+        # 轉換為對數刻度
+        logmelspec = librosa.power_to_db(np.abs(melspec))
+        plt.figure(1, figsize=(14, 5))
+        librosa.display.specshow(
+            logmelspec,
+            sr=self.sr,
+            x_axis="time",
+            y_axis='mel',
+            cmap='jet',
+        )
+        plt.colorbar(format=' %+2.0f dB ')  # 右邊的色度條
+        title = 'Mel spectrogram_' + self.audio_name
+        plt.title(title, fontproperties="Microsoft JhengHei")
         plt.show()
