@@ -11,23 +11,23 @@ def main():
     sig, sr = librosa.load(os.path.join(audio_path, audio_name))
     ## 初始化參數
     audio1 = Wav_plot(sig, sr, audio_name)
-    ## 畫圖
-    audio1.time_wave()
-    # audio1.spec()
-    # audio1.Mel_spec()
 
     ## data augmentation
     ## Time Stretch(時間尺度變換)
     sig_ts = librosa.effects.time_stretch(sig,
                                           rate=1.2)  # rate > 1 加速，rate < 1 減速
     audio2 = Wav_plot(sig_ts, sr, 'Time Stretch')
-    audio2.time_wave()
 
     ## Pitch Shift
     sig_ps = librosa.effects.pitch_shift(sig, sr, n_steps=6)  # n_steps控制音調變化尺度
     audio3 = Wav_plot(sig_ps, sr, 'Pitch Shift')
-    audio3.time_wave()
 
+    # 畫圖
+    audio1.time_wave()
+    audio2.time_wave()
+    plt.show()
+    audio1.frequence_wavform()
+    audio3.frequence_wavform()
     plt.show()
 
 

@@ -19,6 +19,20 @@ class Wav_plot():
         plt.title(self.audio_name, fontproperties="Microsoft JhengHei")
         # plt.show()
 
+    def frequence_wavform(self):
+        sp = np.fft.fft(self.sig)
+        ampSP = np.abs(sp)
+        phaseSP = np.unwrap(np.angle(sp))
+        time_step = 1. / self.sr
+        freqs = np.fft.fftfreq(sp.size, time_step)
+        idx = np.argsort(freqs)  # from negative to positive
+        title = 'frequence_wavform_' + self.audio_name
+        plt.figure()
+        plt.title(title)
+        plt.plot(freqs[idx[len(idx) // 2:]], ampSP[idx[len(idx) // 2:]])
+        plt.xlabel('Hz')
+        plt.ylabel('Amplitude')
+
     #Spectrogram
     def spec(self):
         X = librosa.stft(self.sig)
