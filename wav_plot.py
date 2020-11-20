@@ -68,8 +68,8 @@ class Wav_plot():
                 mel_spectrogram=melspec,
                 time_warping_para=0,
                 frequency_masking_para=10,
-                time_masking_para=100,
-                frequency_mask_num=2,
+                time_masking_para=10,
+                frequency_mask_num=1,
                 time_mask_num=0)
             title = 'Mel spectrogram_augmented_' + self.audio_name
 
