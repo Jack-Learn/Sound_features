@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 from librosa import display
 import librosa
 import numpy as np
+from specAugment import spec_augment_tensorflow
 
 
 class Wav_plot():
@@ -51,17 +52,27 @@ class Wav_plot():
         plt.show()
 
     #MFCC Spectrogram
-    def Mel_spec(self):
+    def Mel_spec(self, augment=False):
         # 取mfcc係數
         mfccs = librosa.feature.mfcc(y=self.sig, sr=self.sr, n_mfcc=22)
         #計算mel頻譜圖參數
         melspec = librosa.feature.melspectrogram(
             self.sig,
             self.sr,
-            n_fft=2048,
-            hop_length=512,
             n_mels=128,
         )
+        title = 'Mel spectrogram_' + self.audio_name
+        # 對頻譜圖進行擴增
+        if augment == True:
+            melspec = spec_augment_tensorflow.spec_augment(
+                mel_spectrogram=melspec,
+                time_warping_para=0,
+                frequency_masking_para=10,
+                time_masking_para=100,
+                frequency_mask_num=2,
+                time_mask_num=0)
+            title = 'Mel spectrogram_augmented_' + self.audio_name
+
         # 轉換為對數刻度
         logmelspec = librosa.power_to_db(np.abs(melspec))
         plt.figure(figsize=(9, 4))
@@ -73,5 +84,5 @@ class Wav_plot():
             cmap='jet',
         )
         plt.colorbar(format=' %+2.0f dB ')  # 右邊的色度條
-        title = 'Mel spectrogram_' + self.audio_name
+
         plt.title(title, fontproperties="Microsoft JhengHei")

@@ -13,14 +13,16 @@ def main():
     audio1 = Wav_plot(sig, sr, audio_name)
 
     ## data augmentation
+    ####################################################################################################
+    # 對聲音進行擴增
     ## Time Stretch(時間尺度變換)
     sig_ts = librosa.effects.time_stretch(sig,
-                                          rate=1.2)  # rate > 1 加速，rate < 1 減速
+                                          rate=0.8)  # rate > 1 加速，rate < 1 減速
     audio2 = Wav_plot(sig_ts, sr, 'Time Stretch')
-
     ## Pitch Shift
     sig_ps = librosa.effects.pitch_shift(sig, sr, n_steps=6)  # n_steps控制音調變化尺度
     audio3 = Wav_plot(sig_ps, sr, 'Pitch Shift')
+    ####################################################################################################
 
     ## 畫圖
     # audio1.time_wave()
@@ -28,10 +30,10 @@ def main():
     # plt.show()
     # audio1.frequence_wavform()
     # audio3.frequence_wavform()
-    # plt.show()
     audio1.Mel_spec()
-    audio2.Mel_spec()
-    audio3.Mel_spec()
+    audio1.Mel_spec(augment=True)
+    # audio2.Mel_spec()
+    # audio3.Mel_spec()
     plt.show()
 
 
