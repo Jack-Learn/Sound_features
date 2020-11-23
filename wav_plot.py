@@ -52,15 +52,15 @@ class Wav_plot():
         plt.show()
 
     #MFCC Spectrogram
-    def Mel_spec(self, augment=False):
+    def Mel_spec(self, augment=False, fmax=8192):
         # 取mfcc係數
         mfccs = librosa.feature.mfcc(y=self.sig, sr=self.sr, n_mfcc=22)
         #計算mel頻譜圖參數
-        melspec = librosa.feature.melspectrogram(
-            self.sig,
-            self.sr,
-            n_mels=128,
-        )
+        melspec = librosa.feature.melspectrogram(self.sig,
+                                                 self.sr,
+                                                 n_mels=128 * 2,
+                                                 hop_length=512,
+                                                 fmax=fmax)
         title = 'Mel spectrogram_' + self.audio_name
         # 對頻譜圖進行擴增
         if augment == True:
@@ -76,13 +76,12 @@ class Wav_plot():
         # 轉換為對數刻度
         logmelspec = librosa.power_to_db(np.abs(melspec))
         plt.figure(figsize=(9, 4))
-        librosa.display.specshow(
-            logmelspec,
-            sr=self.sr,
-            x_axis="time",
-            y_axis='mel',
-            cmap='jet',
-        )
+        librosa.display.specshow(logmelspec,
+                                 sr=self.sr,
+                                 x_axis="time",
+                                 y_axis='mel',
+                                 cmap='jet',
+                                 fmax=fmax)
         plt.colorbar(format=' %+2.0f dB ')  # 右邊的色度條
 
         plt.title(title, fontproperties="Microsoft JhengHei")

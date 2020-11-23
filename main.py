@@ -5,11 +5,11 @@ import matplotlib.pyplot as plt
 
 
 def main():
-    audio_path = 'D:\DATASET\鳥叫聲\樹鵲'
-    audio_name = '國立臺北大學 - 三峽校區2.wav'
+    audio_path = 'D:\DATASET\咳嗽聲'
+    audio_name = '家維.wav'
 
     # load audio
-    sig, sr = librosa.load(os.path.join(audio_path, audio_name))
+    sig, sr = librosa.load(os.path.join(audio_path, audio_name), sr=30000)
     # 初始化參數
     audio = Wav_plot(sig, sr, audio_name)
 
@@ -26,7 +26,7 @@ def main():
     ####################################################################################################
 
     ## 畫圖
-    audio.Mel_spec()
+    audio.Mel_spec(fmax=sr / 2)
     # ts.Mel_spec()
     # ps.Mel_spec()
     # audio.Mel_spec(augment=True)
