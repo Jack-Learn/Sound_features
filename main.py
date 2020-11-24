@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 def main():
     audio_path = 'D:\DATASET\咳嗽聲'
-    audio_name = '家維.wav'
+    audio_name = '增耿.wav'
 
     # load audio
     sig, sr = librosa.load(os.path.join(audio_path, audio_name), sr=30000)
@@ -21,15 +21,16 @@ def main():
                                           rate=0.8)  # rate > 1 加速，rate < 1 減速
     ts = Wav_plot(sig_ts, sr, 'Time Stretch')
     # Pitch Shift
-    sig_ps = librosa.effects.pitch_shift(sig, sr, n_steps=6)  # n_steps控制音調變化尺度
+    sig_ps = librosa.effects.pitch_shift(sig, sr,
+                                         n_steps=24)  # n_steps控制音調變化尺度
     ps = Wav_plot(sig_ps, sr, 'Pitch Shift')
     ####################################################################################################
 
     ## 畫圖
-    audio.Mel_spec(fmax=sr / 2)
-    # ts.Mel_spec()
-    # ps.Mel_spec()
-    # audio.Mel_spec(augment=True)
+    # audio.Mel_spec(fmax=sr / 2)  #fmax跟採樣頻率有關，若fmax提高。採樣頻率也要提高，否則高頻會被切掉
+    # ts.Mel_spec(fmax=sr / 2)
+    # ps.Mel_spec(fmax=sr / 2)
+    audio.Mel_spec(fmax=sr / 2, augment=True)
 
     plt.show()
 
