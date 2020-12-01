@@ -14,56 +14,47 @@ def filter(sig, sr, fx, mode):
     return sig2
 
 
-def main():
-    audio_path = 'D:\DATASET\冷氣故障聲'
-    audio_name = '國立臺北科技大學31.wav'
+audio_path = 'D:\DATASET\冷氣故障聲'
+audio_name = '國立臺北科技大學31.wav'
 
-    # load audio
-    sig, sr = librosa.load(os.path.join(audio_path, audio_name),
-                           sr=40000,
-                           duration=5)
-    audio1 = Wav(sig, sr, audio_name)
+# load audio
+sig, sr = librosa.load(os.path.join(audio_path, audio_name),
+                       sr=40000,
+                       duration=5)
+audio1 = Wav(sig, sr, audio_name)
 
-    ######################################## 濾波器 #######################################################
+######################################## 濾波器 #######################################################
 
-    sig2 = filter(sig, sr, fx=1024, mode='highpass')
-    audio2 = Wav(sig2, sr, '濾波' + audio_name)
+sig2 = filter(sig, sr, fx=1024, mode='highpass')
+audio2 = Wav(sig2, sr, '濾波' + audio_name)
 
-    ################################### data augmentation #################################################
-    ## 對聲音進行擴增
+################################### data augmentation #################################################
+## 對聲音進行擴增
 
-    # Time Stretch(時間尺度變換)
-    sig_ts = librosa.effects.time_stretch(sig,
-                                          rate=0.8)  # rate > 1 加速，rate < 1 減速
-    ts = Wav(sig_ts, sr, 'Time Stretch')
-    # ts.Mel_spec()
+# Time Stretch(時間尺度變換)
+sig_ts = librosa.effects.time_stretch(sig, rate=0.8)  # rate > 1 加速，rate < 1 減速
+ts = Wav(sig_ts, sr, 'Time Stretch')
+# ts.Mel_spec()
 
-    # Pitch Shift(音高尺度變換)
-    sig_ps = librosa.effects.pitch_shift(sig, sr,
-                                         n_steps=24)  # n_steps控制音調變化尺度
-    ps = Wav(sig_ps, sr, 'Pitch Shift')
-    # ps.Mel_spec()
+# Pitch Shift(音高尺度變換)
+sig_ps = librosa.effects.pitch_shift(sig, sr, n_steps=24)  # n_steps控制音調變化尺度
+ps = Wav(sig_ps, sr, 'Pitch Shift')
+# ps.Mel_spec()
 
-    ##對頻譜圖進行擴增
-    # audio.Mel_spec(augment=True,
-    #                time_warping_para=0,
-    #                frequency_masking_para=10,
-    #                time_masking_para=10,
-    #                frequency_mask_num=2,
-    #                time_mask_num=0)
+##對頻譜圖進行擴增
+# audio.Mel_spec(augment=True,
+#                time_warping_para=0,
+#                frequency_masking_para=10,
+#                time_masking_para=10,
+#                frequency_mask_num=2,
+#                time_mask_num=0)
 
-    #######################################################################################################
+#######################################################################################################
 
-    audio1.Mel_spec()
-    audio2.Mel_spec()
-    plt.show()
+audio1.Mel_spec()
+audio2.Mel_spec()
+plt.show()
 
-    ######################################## 輸出wav ######################################################
+######################################## 輸出wav ######################################################
 
-    sf.write(os.path.join(audio_path, '濾波.wav'), sig2, sr)
-
-    ####################################### 初始化參數 ####################################################
-
-
-if __name__ == "__main__":
-    main()
+sf.write(os.path.join(audio_path, '濾波.wav'), sig2, sr)
