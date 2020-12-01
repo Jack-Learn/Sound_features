@@ -1,6 +1,6 @@
 import os
 import librosa
-from wav_plot import Wav_plot
+from wav_helper import Wav
 import matplotlib.pyplot as plt
 from scipy import signal
 import soundfile as sf
@@ -14,9 +14,9 @@ def main():
     sig, sr = librosa.load(os.path.join(audio_path, audio_name),
                            sr=40000,
                            duration=5)
-    audio = Wav_plot(sig, sr, audio_name)
+    audio = Wav(sig, sr, audio_name)
     # 初始化參數
-    audio1 = Wav_plot(sig, sr, audio_name)
+    audio1 = Wav(sig, sr, audio_name)
 
     ######################################## 濾波器 #######################################################
 
@@ -25,7 +25,7 @@ def main():
     b, a = signal.butter(8, wn, 'highpass')  #配置濾波器 8 表示濾波器的階數
     sig2 = signal.filtfilt(b, a, sig)  #data為要過濾的訊號
     # 初始化參數
-    audio2 = Wav_plot(sig2, sr, audio_name)
+    audio2 = Wav(sig2, sr, audio_name)
 
     ################################### data augmentation #################################################
     # 對聲音進行擴增
@@ -33,11 +33,11 @@ def main():
     # Time Stretch(時間尺度變換)
     sig_ts = librosa.effects.time_stretch(sig,
                                           rate=0.8)  # rate > 1 加速，rate < 1 減速
-    ts = Wav_plot(sig_ts, sr, 'Time Stretch')
+    ts = Wav(sig_ts, sr, 'Time Stretch')
     # Pitch Shift
     sig_ps = librosa.effects.pitch_shift(sig, sr,
                                          n_steps=24)  # n_steps控制音調變化尺度
-    ps = Wav_plot(sig_ps, sr, 'Pitch Shift')
+    ps = Wav(sig_ps, sr, 'Pitch Shift')
 
     ####################################################################################################
 
