@@ -10,19 +10,24 @@ def main():
     audio_name = '國立臺北科技大學31.wav'
 
     # load audio
-    sig, sr = librosa.load(os.path.join(audio_path, audio_name), sr=10000)
-    ####################################################################################################
-    #濾波器
-    # fx = 512  #濾波器頻率
-    # wn = 2 * fx / sr
-    # b, a = signal.butter(8, wn, 'highpass')  #配置濾波器 8 表示濾波器的階數
-    # sig = signal.filtfilt(b, a, sig)  #data為要過濾的訊號
-    ####################################################################################################
+    sig, sr = librosa.load(os.path.join(audio_path, audio_name),
+                           sr=40000,
+                           duration=5)
+    ######################################## 濾波器 #######################################################
+
+    fx = 1024  #濾波器頻率
+    wn = 2 * fx / sr
+    b, a = signal.butter(8, wn, 'highpass')  #配置濾波器 8 表示濾波器的階數
+    sig = signal.filtfilt(b, a, sig)  #data為要過濾的訊號
+
+    ####################################### 初始化參數 ####################################################
+
     # 初始化參數
     audio = Wav_plot(sig, sr, audio_name)
-    ####################################################################################################
-    # data augmentation
+
+    ################################### data augmentation #################################################
     # 對聲音進行擴增
+
     # Time Stretch(時間尺度變換)
     sig_ts = librosa.effects.time_stretch(sig,
                                           rate=0.8)  # rate > 1 加速，rate < 1 減速
@@ -31,6 +36,7 @@ def main():
     sig_ps = librosa.effects.pitch_shift(sig, sr,
                                          n_steps=24)  # n_steps控制音調變化尺度
     ps = Wav_plot(sig_ps, sr, 'Pitch Shift')
+
     ####################################################################################################
 
     ## 畫圖
