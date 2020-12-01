@@ -5,7 +5,7 @@ import numpy as np
 from specAugment import spec_augment_tensorflow
 
 
-class Wav():
+class Wav_helper():
     def __init__(self, sig, sr, audio_name):
         # super(Wav_plot, self).__init__()
         self.sig = sig
@@ -51,9 +51,16 @@ class Wav():
         plt.title(title, fontproperties="Microsoft JhengHei")
 
     #MFCC Spectrogram
-    def Mel_spec(self, augment=False, fmax=8192):
+    def Mel_spec(self,
+                 augment=False,
+                 time_warping_para=0,
+                 frequency_masking_para=10,
+                 time_masking_para=10,
+                 frequency_mask_num=2,
+                 time_mask_num=0):
         # 取mfcc係數
         mfccs = librosa.feature.mfcc(y=self.sig, sr=self.sr, n_mfcc=22)
+        fmax = self.sr / 2  #fmax跟採樣頻率有關，若fmax提高。採樣頻率也要提高，否則高頻會被切掉
         #計算mel頻譜圖參數
         melspec = librosa.feature.melspectrogram(self.sig,
                                                  self.sr,
@@ -65,11 +72,11 @@ class Wav():
         if augment == True:
             melspec = spec_augment_tensorflow.spec_augment(
                 mel_spectrogram=melspec,
-                time_warping_para=0,
-                frequency_masking_para=10,
-                time_masking_para=10,
-                frequency_mask_num=2,
-                time_mask_num=0)
+                time_warping_para=time_warping_para,
+                frequency_masking_para=frequency_masking_para,
+                time_masking_para=time_masking_para,
+                frequency_mask_num=frequency_mask_num,
+                time_mask_num=time_mask_num)
             title = 'Mel spectrogram_augmented_' + self.audio_name
 
         # 轉換為對數刻度
