@@ -20,13 +20,13 @@ audio_name = '國立臺北科技大學31.wav'
 # load audio
 sig, sr = librosa.load(os.path.join(audio_path, audio_name),
                        sr=40000,
-                       duration=5)
-audio1 = Wav(sig, sr, audio_name)
+                       duration=3)
+audio1 = Wav(sig[int(1.8 * sr):], sr, audio_name)
 
 ######################################## 濾波器 #######################################################
 
 sig2 = filter(sig, sr, fx=1024, mode='highpass')
-audio2 = Wav(sig2, sr, '濾波' + audio_name)
+audio2 = Wav(sig2[int(1.8 * sr):], sr, '濾波' + audio_name)
 
 ################################### data augmentation #################################################
 ## 對聲音進行擴增
