@@ -15,14 +15,15 @@ def filter(sig, sr, fx, mode):
 
 
 audio_path = 'D:\DATASET\咳嗽聲'
-audio_name = '志豪戴口罩.wav'
+audio_name = '麒銘用手遮.wav'
 
 # load audio
 sig, sr = librosa.load(os.path.join(audio_path, audio_name),
                        sr=40000)
-# start = 0, end = 0
-# sig = sig[int(1.8 * sr):]  #時間區段
-audio1 = Wav(sig, sr, '志豪戴口罩')
+start = 0.2
+duration = 2
+sig = sig[int(start * sr) : int((start + duration) * sr)]  #時間區段
+audio1 = Wav(sig, sr, '麒銘用手遮_2s')
 
 ######################################## 濾波器 #######################################################
 
