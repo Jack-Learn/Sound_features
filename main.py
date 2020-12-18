@@ -1,10 +1,10 @@
+
 import os
 import librosa
 from wav_helper import Wav_helper as Wav
 import matplotlib.pyplot as plt
 from scipy import signal
 import soundfile as sf
-
 
 # 濾波器
 def filter(sig, sr, fx, mode):
@@ -14,16 +14,16 @@ def filter(sig, sr, fx, mode):
     return sig2
 
 
-audio_path = 'D:\DATASET\咳嗽聲'
-audio_name = '麒銘用手遮.wav'
+audio_path = 'D:\DATASET\咳嗽聲\安卓'
+audio_name = 'S120.wav'
 
 # load audio
 sig, sr = librosa.load(os.path.join(audio_path, audio_name),
                        sr=40000)
-start = 0.2
-duration = 2
-sig = sig[int(start * sr) : int((start + duration) * sr)]  #時間區段
-audio1 = Wav(sig, sr, '麒銘用手遮_2s')
+start = 1.2
+duration = 2.5
+# sig = sig[int(start * sr) : int((start + duration) * sr)]  #時間區段
+audio1 = Wav(sig, sr, 'S120')
 
 ######################################## 濾波器 #######################################################
 
@@ -60,3 +60,5 @@ plt.show()
 ######################################## 輸出wav ######################################################
 
 # sf.write(os.path.join(audio_path, '濾波.wav'), sig2, sr)
+
+# %%
