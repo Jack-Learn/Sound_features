@@ -3,5 +3,4 @@
     "python.linting.pylintArgs": [
         "--generate-members"
     ],
-    "editor.formatOnSave": true,
 }
