@@ -14,16 +14,16 @@ def filter(sig, sr, fx, mode):
     return sig2
 
 
-audio_path = 'D:\DATASET\咳嗽聲\安卓'
-audio_name = 'S120.wav'
+audio_path = 'D:/DATASET/咳嗽聲/安卓/1219'
+audio_name = '1219_老師120手遮.wav'
 
 # load audio
 sig, sr = librosa.load(os.path.join(audio_path, audio_name),
                        sr=40000)
-start = 1.2
+start = 2.5
 duration = 2.5
 # sig = sig[int(start * sr) : int((start + duration) * sr)]  #時間區段
-audio1 = Wav(sig, sr, 'S120')
+audio1 = Wav(sig, sr, '1219_老師120手遮')
 
 ######################################## 濾波器 #######################################################
 
