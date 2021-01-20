@@ -22,9 +22,9 @@ f.close()
 ######################################## 濾波器 #######################################################
 fx = 1024  #濾波器頻率
 wn = 2 * fx / sr
-b, a = signal.butter(8, wn, 'highpass')  #配置濾波器 8 表示濾波器的階數
+# b, a = signal.butter(8, wn, 'highpass')  #配置濾波器 8 表示濾波器的階數
 # sig = signal.filtfilt(b, a, sig)  #data為要過濾的訊號
-sf.write('stereo_file2.wav', sig, sr)
+# sf.write('stereo_file2.wav', sig, sr)
 
 # # 寫入wav
 # f = wave.open('weite_test.wav', 'wb')
