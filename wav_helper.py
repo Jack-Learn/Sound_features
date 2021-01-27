@@ -64,7 +64,7 @@ class Wav_helper():
         #計算mel頻譜圖參數
         melspec = librosa.feature.melspectrogram(self.sig,
                                                  self.sr,
-                                                 n_mels=128 * 3,
+                                                 n_mels=128,
                                                  hop_length=None,
                                                  fmax=fmax)
         title = 'Mel spectrogram_' + self.audio_name

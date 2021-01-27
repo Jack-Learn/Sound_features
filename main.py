@@ -1,4 +1,3 @@
-
 import os
 import librosa
 from wav_helper import Wav_helper as Wav
@@ -14,16 +13,18 @@ def filter(sig, sr, fx, mode):
     return sig2
 
 
-audio_path = 'D:/DATASET/咳嗽聲/安卓/1219'
-audio_name = '1219_老師120手遮.wav'
+audio_path = r'D:\dataset\鳥叫聲\晨間霧水滴落在葉子的聲音'
+audio_name = '官田區2.wav'
 
 # load audio
 sig, sr = librosa.load(os.path.join(audio_path, audio_name),
-                       sr=40000)
-start = 2.5
-duration = 2.5
-# sig = sig[int(start * sr) : int((start + duration) * sr)]  #時間區段
-audio1 = Wav(sig, sr, '1219_老師120手遮')
+                       sr=16000)
+start = 1
+duration = 5
+sig = sig[int(start * sr) : int((start + duration) * sr)]  #時間區段
+audio1 = Wav(sig, sr, '晨間霧水滴落在葉子的聲音(1s~6s)')
+audio1.Mel_spec()
+plt.show()
 
 ######################################## 濾波器 #######################################################
 
@@ -53,9 +54,9 @@ audio1 = Wav(sig, sr, '1219_老師120手遮')
 
 #######################################################################################################
 
-audio1.Mel_spec()
+
 # audio2.Mel_spec()
-plt.show()
+
 
 ######################################## 輸出wav ######################################################
 
